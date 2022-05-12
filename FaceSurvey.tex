@@ -50,7 +50,7 @@
 \author{
 HJW\\
 Institution1 address\\
-{\tt\small firstauthor@i1.org}
+{\tt\small ykn@rtfm.moe}
 % For a paper whose authors are all at the same institution,
 % omit the following lines up until the closing ``}''.
 % Additional authors and addresses can be added with ``\and'',
@@ -78,7 +78,7 @@ To simplify such process, one can automatically generate facial animation or can
 
 In this survey, I introduce and compare three research that animate expressive facial animation :
 \begin{itemize}
- \item JaLi\cite{edwardsJALIAnimatorcentricViseme2016} and VisimeNet\cite{zhouVisemenetAudiodrivenAnimatorcentric2018}, a linguistic approach to lip-sync.
+ \item JALI\cite{edwardsJALIAnimatorcentricViseme2016} and VisimeNet\cite{zhouVisemenetAudiodrivenAnimatorcentric2018}, a linguistic approach to lip-sync.
  \item MeshTalk\cite{richardMeshTalk3DFace2021}, a deep learning method.
  \item D3DExpression\cite{potamiasLearningGenerateCustomized2020}, LSTM method which replicate facial expression.
 \end{itemize}
@@ -92,17 +92,18 @@ In this survey, I introduce and compare three research that animate expressive f
 
 \section{Methods}
 
-\subsection{JaLi and VisimeNet}
+\subsection{JALI and VisimeNet}
 
 \begin{figure}
-   \includegraphics{jaliStyles} 
+   \includegraphics{jaliStyles \rule{0.9\linewidth}{0pt}}
+   
    \caption{Speaking styles of JALI viseme field}
    \label{fig:jaliStyles}
 \end{figure}
 
 Creating lip-sync animation is complex and challenging task. Lip-sync is traditionally done by linguistic approach. Mapping text to phonemes, then visemes, the position of lip and jaw\cite{ezzatMikeTalkTalkingFacial1998}.
 
-Phonemes to visemes is a complex many-to-many mapping. JaLi addresses this problem by animating each jaw and lip multipliers.
+Phonemes to visemes is a complex many-to-many mapping. JALI addresses this problem by animating each jaw and lip multipliers.
 
 Creating lip-sync animation from audio signal only is an attractive approach since it does not require any costly camera or tracking device. This approach requires extracting viseme and jaw-lip model sequence from audio.
 As shown on \cref{fig:jaliStyles}, something something
