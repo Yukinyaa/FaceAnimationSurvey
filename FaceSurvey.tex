@@ -70,9 +70,11 @@ With technology allowing for increasing realism in games and movies, facial anim
 \section{Introduction}
 \label{sec:intro}
 
+Facial animation can be applied to various fields.
+
 Psychologically, Human tend to be very sensitive to facial motion. Slightest uncanniest in facial animation is directly lead to hurt overall experience of embodiment, and overall experience\cite{hansonUpendingUncannyValley}. So, delivering natural expressive facial animation is a great interest in graphics field.
 
-To render realistic 3D face animation that naturally, high-quality animation is required. Animating high-quality expressive face is very labor-intensive job when done by animator. Another approach is to capture human face animation in 3D. Face capture is a well-understood field(cite here), yet such approach requires gigabytes of data from expensive capture system, and is hard to manipulate. Therefore, it is necessary to simplify such process. 
+To achieve realistic 3D face animation naturally, high-quality animation is required. Animating high-quality expressive face is very labor-intensive job when done by animator. Another approach is to capture human face animation in 3D. Face capture is a well-understood field(cite here), yet such approach requires gigabytes of data from expensive capture system, and is hard to manipulate. Therefore, it is necessary to simplify such process. 
 
 To simplify such process, one can automatically generate facial animation or can simplify animating produce.
 
@@ -103,7 +105,9 @@ In this survey, I introduce and compare three research that animate expressive f
 
 Creating lip-sync animation is complex and challenging task. Lip-sync is traditionally done by linguistic approach. Mapping text to phonemes, then visemes, the position of lip and jaw\cite{ezzatMikeTalkTalkingFacial1998}. Phonemes to visemes is a complex many-to-many mapping.
 
-JALI\cite{edwardsJALIAnimatorcentricViseme2016} addresses this problem by taking jaw and lip activation multipliers into consideration, since jaw and lip is the most significant acoustic motion in face. As shown on \cref{fig:jaliStyles}, different speaking styles shows different jaw lip activation level. JALI 
+JALI\cite{edwardsJALIAnimatorcentricViseme2016} is a state of the art viseme model. JALI takes jaw and lip activation multipliers into consideration, since jaw and lip is the most significant acoustic motion in face.
+
+As shown on \cref{fig:jaliStyles}, different speaking styles shows different jaw lip activation level multipliers.
 
 Creating lip-sync animation from audio signal only is an attractive approach since it does not require any costly camera or tracking device. 
 
