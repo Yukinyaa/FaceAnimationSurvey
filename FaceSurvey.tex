@@ -70,11 +70,9 @@ With technology allowing for increasing realism in games and movies, facial anim
 \section{Introduction}
 \label{sec:intro}
 
-Facial animation can be applied to various fields.
+Human tend to be very sensitive to facial motion psychologically. Slightest uncanniest in facial animation directly leads to hurt overall experience\cite{hansonUpendingUncannyValley}. Facial animation can be applied to multiple applications such as computer games, e-commerce, immersive VR telepresence, and movies. Yet achieving realistic facial animation is a challenging task. So, delivering natural expressive facial animation is a great interest in graphics field.
 
-Human tend to be very sensitive to facial motion psychologically. Slightest uncanniest in facial animation is directly lead to hurt overall experience of embodiment, and overall experience\cite{hansonUpendingUncannyValley}. So, delivering natural expressive facial animation is a great interest in graphics field.
-
-To achieve realistic 3D face animation naturally, high-quality animation is required. Animating high-quality expressive face is very labor-intensive job when done by animator. Another approach to animate face is to capture human face animation in 3D. Face capture is a well-understood field(cite here), yet such approach requires gigabytes of data from expensive capture system, and is hard to manipulate. Therefore, it is necessary to simplify such process. 
+Animating high-quality expressive face is very labor-intensive job when done by animator. Another approach to animate face is to capture human face animation in 3D. Face capture is a well-understood field(cite here), yet such approach requires gigabytes of data from expensive capture system, and is hard to manipulate. Therefore, it is necessary to simplify such process. 
 
 To simplify such process, one can automatically generate facial animation or can simplify animating produce.
 
@@ -94,8 +92,9 @@ In this survey, I introduce and compare three research that animate expressive f
 
 \section{Methods}
 
-\subsection{JALI and VisimeNet}
+\subsection{JALI and VisemeNet}
 
+\subsubsection{JALI}
 \begin{figure}
    \includegraphics[width=1.0\linewidth]{jaliStyles}
    
@@ -103,30 +102,54 @@ In this survey, I introduce and compare three research that animate expressive f
    \label{fig:jaliStyles}
 \end{figure}
 
-%Creating lip-sync animation is complex and challenging task.
-Lip-sync is traditionally done by linguistic approach which is mapping text to phonemes, then phonemes to visemes, then phonemes to the position of lip and jaw\cite{ezzatMikeTalkTalkingFacial1998}. Phonemes to visemes is a complex many-to-many mapping.
+%Introducing: a linguistic approach, an old approach
+Lip-sync can be done by linguistic approach which is mapping text to phonemes, then phonemes to visemes\cite{ezzatMikeTalkTalkingFacial1998}. Viseme is a specific facial shape when making certain sound. A traditional facial rig can have many-to-one mapping from phonemes to visemes, or many-to-many using dynamic visemes. This approach can achieve realistic acoustic motion, yet lacks some emotional 
 
-JALI\cite{edwardsJALIAnimatorcentricViseme2016} is a state of the art viseme model. JALI takes jaw and lip activation multipliers into consideration, since jaw and lip is the most significant acoustic motion in face.
+%Introduce JALI(JALI blendshape), introduce blendshape model(silmillar to xxx)
+JALI\cite{edwardsJALIAnimatorcentricViseme2016} is a state-of-the-art viseme model. JALI takes jaw and lip activation multipliers into consideration, since jaw and lip is the most significant acoustic motion in face.
 
-%about 3d blendshape model
-
-JALI many-to-one map phonemes to viseme. Then applied animated jaw-lip multipliers to the face.
-%about linguistic model, suppressor rules etc
-
+%JALI Mapping
 As shown on \cref{fig:jaliStyles}, different speaking styles shows different jaw lip activation level multipliers. Which can be animated more intuitively.
 
+%about linguistic model, suppressor rules etc
 JALI model requires manual labor such as aligning audio to plain text or phonemes. This lead to research to automate such process. This approach requires extracting viseme and jaw-lip model sequence from audio. 
 
+%Strength of JALI
 
+%Limitation of JALI
 
-%Creating lip-sync animation from audio signal only is an attractive approach since it does not require any costly camera or tracking device. 
+\subsubsection{VisemeNet}
 
-%Eye and eyebrow animation is another topic.
+%Significance of Audio to animation.
 
-%Capturing and mapping to latent space is a field.
+%Introdude visemeNet
+%network overview
+%Pretrain network And datastet
+%Main network And dataset
+%Pros of VisemeNet
+%Limitation of VisemeNet
 
-%Emotion transition from/to neutral face is a field.
+\subsection{MeshTalk}
+%Introduce Meshtalk
+%network overview
+%Overview
+%Speech Data
+%Mesh Data
+%Pros of VisemeNet
+%Limitation of VisemeNet
 
+\subsection{D3DExpression}
+%Introduction 
+%network overview
+%Overview
+%Speech Data
+%Mesh Data
+%Pros of VisemeNet
+%Limitation of VisemeNet
+
+\subsection{Discussion}
+%compare input and output with sheet
+%compare training data with sheet
 
 %%%%%%%%% REFERENCES
 {\small
