@@ -92,9 +92,10 @@ In this survey, I introduce and compare three research that animate expressive f
 
 \section{Methods}
 
-\subsection{JALI and VisemeNet}
+\subsection{JALI and Visemenet}
 
 \subsubsection{JALI}
+
 \begin{figure}
    \includegraphics[width=1.0\linewidth]{jaliStyles}
    
@@ -103,31 +104,51 @@ In this survey, I introduce and compare three research that animate expressive f
 \end{figure}
 
 %Introducing: a linguistic approach, an old approach
-Lip-sync can be done by linguistic approach which is mapping text to phonemes, then phonemes to visemes\cite{ezzatMikeTalkTalkingFacial1998}. Viseme is a specific facial shape when making certain sound. A traditional facial rig can have many-to-one mapping from phonemes to visemes, or many-to-many using dynamic visemes. This approach can achieve realistic acoustic motion, yet lacks some emotional 
+Lip-sync can be done by linguistic approach which is mapping text to phonemes, then phonemes to visemes\cite{ezzatMikeTalkTalkingFacial1998}. Viseme is a specific facial shape when making certain sound. A traditional facial rig can have many-to-one mapping from phonemes to visemes, or many-to-many using dynamic visemes. This approach can achieve realistic acoustic motion on the model.
 
-%Introduce JALI(JALI blendshape), introduce blendshape model(silmillar to xxx)
-JALI\cite{edwardsJALIAnimatorcentricViseme2016} is a state-of-the-art viseme model. JALI takes jaw and lip activation multipliers into consideration, since jaw and lip is the most significant acoustic motion in face.
-
-%JALI Mapping
-As shown on \cref{fig:jaliStyles}, different speaking styles shows different jaw lip activation level multipliers. Which can be animated more intuitively.
+%Introduce JALI
+JALI\cite{edwardsJALIAnimatorcentricViseme2016} is a state-of-the-art viseme model that can generate lip-sync animation from English text and voice. JALI takes jaw and lip activation multipliers into consideration, since jaw and lip is the most significant acoustic motion in face. As shown on \cref{fig:jaliStyles}, different speaking styles shows different jaw lip activation level multipliers, which can be animated more intuitively.
 
 %about linguistic model, suppressor rules etc
-JALI model requires manual labor such as aligning audio to plain text or phonemes. This lead to research to automate such process. This approach requires extracting viseme and jaw-lip model sequence from audio. 
+JALI use text-to-phoneme speech library built in to OSX. This converts English text into a phonemic representation. Next, text is forced aligned, which is a process that aligning phonemes to text. Audio must be annotated with the beginning, middle, and end of each phoneme. This is typically done by training Hidden Markov Model. Several tools exist for this task such as HTK and SPHINX.
+
+JALI animates a facial rig by producing sparse animation keyframes for visemes, by some linguistic rules. When animating, lexical stress and co-articulation rule is considered. Co-articulation is a rule which visemes interact with each other. For example, duplicated visemes such as /p/ and /m/ in "pop man" are co-articulated into one MMM viseme, and tongue-only visemes have no influence on the lips, and lip takes shape of the surrounding visemes.
+
+%Volume of each word have to be considered to determine which word is stressed. It is impossible to determine volume of plosive (e.g. p b d) or fricative (e.g. s z f). But vowel (a e i o u) is always voiced, so stress can be easily determined.
 
 %Strength of JALI
+Unlike other methods, JALI can produce sparse keyframed procedural animation. Generated animation can be edited to achieve more idiosyncratic animation. It is also easy to accompany the method with other animation, since animation only affects jaw and lip parameter of the rig.
 
 %Limitation of JALI
+Limitation of the work is that it lacks some auditory parameter such as rate of speech, and jitter and shimmer. Also, emotional speech styles are not considered. Emotional styles can affect subtle parameter, but is a critical part of expressiveness of the animation.
 
-\subsubsection{VisemeNet}
+\subsubsection{Visemenet}
+
+\begin{figure*}
+   \centering
+   \includegraphics[width=1.0\linewidth]{VisemenetArchitecture}
+   \caption{Architecture of Visemenet model.}
+   \label{fig:VisemenetArchitecture}
+\end{figure*}
+
 
 %Significance of Audio to animation.
 
-%Introdude visemeNet
+%Introdude Visemenet
+Visemenet is a deep-learning based lip-sync method based on JALI model. Unlike JALI, Visemenet takes auditory data only to generate JALI lip-sync animation. Visemenet tries to replicate linguistic model with multiple deep-learning LSTM layers.
+
 %network overview
+As shown on \cref{fig:VisemenetArchitecture}, Visemenet mainly have three stages. Phoneme group stage, landmark stage, and viseme stage. Phoneme and landmark stage is a pretrained model with relatively large amount of dataset, and Viseme stage a main model which predicts three types of JALI animation parameters.
+
 %Pretrain network And datastet
+Auditory data is converted to multiple features that has been used in previous studies. 65 feature vectors of 3 type per each frame is used, and 24 frames are used as input of all network, sum 1560 dimension.
+
+Phoneme groups are 20 groups of phonemes which corresponds to certain visemes. Phoneme group stage estimates phoneme group from audio features.
+
+38 artist-defined landmarks in real face with jaw, lip and nose is considered in landmark stage. Landmark stage estimates 2D-displacement of this landmark, resulting in 76-D output.
 %Main network And dataset
-%Pros of VisemeNet
-%Limitation of VisemeNet
+%Pros of Visemenet
+%Limitation of Visemenet
 
 \subsection{MeshTalk}
 %Introduce Meshtalk
@@ -135,8 +156,8 @@ JALI model requires manual labor such as aligning audio to plain text or phoneme
 %Overview
 %Speech Data
 %Mesh Data
-%Pros of VisemeNet
-%Limitation of VisemeNet
+%Pros of Visemenet
+%Limitation of Visemenet
 
 \subsection{D3DExpression}
 %Introduction 
@@ -144,8 +165,8 @@ JALI model requires manual labor such as aligning audio to plain text or phoneme
 %Overview
 %Speech Data
 %Mesh Data
-%Pros of VisemeNet
-%Limitation of VisemeNet
+%Pros of Visemenet
+%Limitation of Visemenet
 
 \subsection{Discussion}
 %compare input and output with sheet
