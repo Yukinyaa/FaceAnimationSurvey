@@ -48,14 +48,9 @@
 \title{Generating Expressive Facial Mesh Animation : A Survey}
 
 \author{
-HJW\\
-Institution1 address\\
-{\tt\small self@yukinyaa.moe}
-% For a paper whose authors are all at the same institution,
-% omit the following lines up until the closing ``}''.
-% Additional authors and addresses can be added with ``\and'',
-% just like the second author.
-% To save space, use either the email address or home page, not both
+%HJW\\
+% CAU Univ.\\
+{\tt\small}
 }
 \maketitle
 
@@ -171,7 +166,7 @@ This research mixes animator-centric technique and deep-learning method. But unl
  \end{figure}
 
 %Introduce Meshtalk
-MeshTalk is a generic method for generating full facial mesh animation from speech. MeshTalk network can generate lip-sync animation from a single frame of generic human facial mesh and audio signal, and also can in expressive data from mesh animation.
+MeshTalk is a generic method for generating full facial mesh animation from speech and a expression mesh. Since speech does not encode all aspects of the facial expressions. Eye-blinks are a simple example of uncorrelated expressive information. Most existing audio-driven approaches static upper face animation. To overcome this issue, Meshtalk introduces a method that learn a categorical latent space for facial expressions.
 
 %network overview
 The network resembles Variational Autoencoder with multiple latent space as shown in Figure \ref{fig:networkdiag}.
@@ -183,20 +178,52 @@ Target mesh \(\hat{h}\) is estimated from template mesh \(h\) and latent space \
 Sequence of latent space \(\mathsf{c}_{1:T}\) is derived from audio sequence \(\mathsf{a}_{1:T}\) and expression signal mesh sequence \(\mathsf{x}_{1:T}\).
 \(c\) and \(a\) are first mapped to \(T*H*C\) dimensional latent space, then passed through Gumbel-softmax\cite{jangCategoricalReparameterizationGumbelSoftmax2017} over every classification head.
 
-%Mesh Data
+Application of Meshtalks are re-targeting animated mesh to other static mesh, and re-synthesizeing sentences with a new language audio snippet.
+
+%Dataset
+In traning phase, the method uses In-house audio-visual dataset. At dataset, 1.4 million frames of 13 hours equivalent audio-visual dataset from 250 subjects, reading 50 phonetically balanced sentences.
+
+
 %Pros of MeshTalk
+A novel categorical latent space in combination with a cross-modality loss enables generation of highly realistic animation. Meshtalk demostrates high-accuracy lip mition and plausible motion of eye and eyebrows.
+
 %Limitation of MeshTalk
+The limitation of Meshtalk is that it cannot compenstate for hidden body parts. For example, hair covering eyebrow. And network size is modereltly large and cannot be run realtime at low-cost computational devices such as mobile phone or VR devices.
 
 \subsection{D3DExpression}
+
+
 %Introduction 
+The goal of paper \emph{Learning to Generate Customized Dynamic 3D Facial Expressions}(D3DExpression) is to generate realistic 3D facial animation given a target expression and a static neutral face.
+
 %network overview
-%Overview
-%Speech Data
-%Mesh Data
+
+
+
+\begin{figure}[t]
+   \begin{center}
+   \includegraphics[width=0.8\linewidth]{d3dphase.png}
+   \end{center}
+   \caption{Four phases of emotion, \cite{potamiasLearningGenerateCustomized2020}}
+   \label{fig:d3dphase}
+ \end{figure}
+
+%dataset
+Dataset is 4DFAB\cite{cheng4DFABLargeScale2018a}, which includes video clips with highly exaggerated six facial expressions, namely happy, sad, surprise, angry, disgust and fear, for 180 subjects. It is assumed that each expression can be characterised by four phases of its evolution as shown on \ref{fig:d3dphase}. Starting from Netural value of 0, onset that linerlly increment value, then apex value of 1, offset that decreses then back to netural face.
+
+%model
+The overall architecture of the model is structured by two major components. The first one contains a temporal encoder, using an LSTM layer that encodes the expected facial motion of the target expression. Input of the LSTM network is 6 dimension, which is a one-hot encoding of one of the six exprssion, with amplitude. The second component is a frame decoder, with four layers of mesh convolutions, where each one is followed by an upsampling layer. Each upsampling layer increases the number of vertices by five times, and every mesh convolution is followed by a ReLU activation. Finally, the output of the decode is added to the neutral face.
+
 %Pros of D3DExpression
+The model can predict exaggerated facial mesh, and interpolate between  diffrent expressions. Results show that the proposed method outperforms expression blendshapes. But the dataset is limited to extreme variation of the expression and limited to six emotions.
+
+
+%Overview
 %Limitation of D3DExpression
 
 \subsection{Discussion}
+
+We went through methods that generates rich facial animation. JALI takes phonemic approach to generate realistic animator centric lip-sync animation. Visemenet took this approach, an replaced phonemic component with deep learning layers, further automating the process. MeshTalk suggests novel loss function and categorical latent space to encourage the model to have an accurate upper and lower face reconstruction. D3DExpression proposed a method that can recreate facial expression animation.
 
 \begin{table*}
    \centering
@@ -206,14 +233,17 @@ Sequence of latent space \(\mathsf{c}_{1:T}\) is derived from audio sequence \(\
       \midrule
       JALI & Audio, transcript & JALI rigged keyframed lip-sync animation \\
       Visemenet & Audio & JALI rigged lip-sync animation \\
-      MeshTalk & Audio, Expression mesh animation & Mesh animation\\
-      D3DExpression & ?? & ??\\
+      MeshTalk & Audio, Expression mesh animation, template mesh & Mesh animation\\
+      D3DExpression & Expression encoding, template mesh & Mesh animation with given expression\\
       \bottomrule
    \end{tabular}
    \caption{Comparison of input and output of each method}
    \label{table:io_cmp}
 \end{table*}
 
+Three of the paper targets lip-sync animation as a goal and shows high quality results (see \cref*{table:io_cmp}). Lip-sync is well understood field, but expressive animation of upper face like eyes and eyebrows is relatively unexplored, yet shows potential.
+
+Meshtalk and D3DExpression generates mesh animation. Yet rendering mesh requires various texture and maps, like bump-map for wrinkles. Further research can be conducted to generate such textures.
 
 \begin{table*}
    \centering
@@ -224,7 +254,7 @@ Sequence of latent space \(\mathsf{c}_{1:T}\) is derived from audio sequence \(\
       JALI & No training data & - \\
       Visemenet & Publically available Audio, Transcript, Video & 15h pretrain 1h main \\
       MeshTalk & In-house Audio, Mesh animation & 13h \\
-      D3DExpression & ?? & ??\\
+      D3DExpression & Expression labeled mesh animation & 1000+ clips\\
       \bottomrule
    \end{tabular}
    \caption{Comparison of traning dataset of each method}
@@ -237,7 +267,6 @@ Sequence of latent space \(\mathsf{c}_{1:T}\) is derived from audio sequence \(\
 %%%%%%%%% REFERENCES
 {\small
 \bibliographystyle{ieee_fullname}
-
 \bibliography{refs}
 }
 
